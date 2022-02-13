@@ -14,16 +14,42 @@ public class GoodbyeCanvasHandler : MonoBehaviour
     
     private void Start()
     {
+        StartCoroutine(WalkAwayAnimation());
         StartCoroutine(LoadTryAgain());
+    }
+
+    private IEnumerator WalkAwayAnimation()
+    {
+        bearAnimator.SetBool(Walk, true);
+        bearAnimator.SetBool(Die, false);
+        bearGo.transform.position = new Vector3(0, 90, 0);
+        yield return MoveOverSeconds(bearGo, new Vector3 (5f, 0f, 0f), 10f);
+    }
+
+    private IEnumerator MoveOverSpeed (GameObject objectToMove, Vector3 end, float speed){
+        // speed should be 1 unit per second
+        while (objectToMove.transform.position != end)
+        {
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame ();
+        }
+    }
+    
+    public IEnumerator MoveOverSeconds (GameObject objectToMove, Vector3 end, float seconds)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        objectToMove.transform.position = end;
     }
 
     private IEnumerator LoadTryAgain()
     {
-        bearAnimator.SetBool(Walk, true);
-        yield return new WaitForSecondsRealtime(1);
-        bearGo.transform.Rotate(new Vector3(0, 270, 0));
-        yield return new WaitForSecondsRealtime(5);
-        tryAgainButton.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(5);
         tryAgainButton.gameObject.SetActive(true);
     }
@@ -32,7 +58,6 @@ public class GoodbyeCanvasHandler : MonoBehaviour
     {
         uiMainCanvas.gameObject.SetActive(true);
         gameObject.SetActive(false);
-        bearAnimator.SetBool(Die, false);
         bearAnimator.SetBool(Walk, false);
         bearAnimator.SetBool(Wave, true);
     }
