@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
@@ -9,6 +10,11 @@ public class ButtonManager : MonoBehaviour
     
     private static readonly int Dance = Animator.StringToHash("Dance");
     private static readonly int Die = Animator.StringToHash("Die");
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     public void OnYesClick()
     {
