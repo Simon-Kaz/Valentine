@@ -20,16 +20,18 @@ public class GoodbyeCanvasHandler : MonoBehaviour
 
     private IEnumerator WalkAwayAnimation()
     {
-        bearAnimator.SetBool(Walk, true);
         bearAnimator.SetBool(Die, false);
-        yield return MoveOverSeconds(bearGo, new Vector3 (5f, 0f, 0f), 10f);
+        bearAnimator.SetBool(Walk, true);
+        yield return new WaitForSecondsRealtime(1);
+        bearGo.transform.Rotate(new Vector3(0f, 1f, 0f), -90f);
+        yield return MoveOverSeconds(bearGo, new Vector3 (5f, 0f, 0f), 5f);
     }
 
     private IEnumerator MoveOverSpeed (GameObject objectToMove, Vector3 end, float speed){
         // speed should be 1 unit per second
         while (objectToMove.transform.position != end)
         {
-            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime); ;
             yield return new WaitForEndOfFrame ();
         }
     }
@@ -57,6 +59,7 @@ public class GoodbyeCanvasHandler : MonoBehaviour
     {
         uiMainCanvas.gameObject.SetActive(true);
         gameObject.SetActive(false);
+        bearGo.transform.Rotate(new Vector3(0f, 1f, 0f), 90f);
         bearAnimator.SetBool(Walk, false);
         bearAnimator.SetBool(Wave, true);
         bearGo.transform.position = new Vector3(0, 0, 0);
