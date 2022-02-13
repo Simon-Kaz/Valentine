@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private Canvas uiYesCanvas;
+    [SerializeField] private Canvas uiNoCanvas;
     [SerializeField] private GameObject heartContainer;
     [SerializeField] private Animator bearAnimator;
     
@@ -27,6 +27,7 @@ public class ButtonManager : MonoBehaviour
     public void OnNoClick()
     {
         uiCanvas.gameObject.SetActive(false);
+        uiNoCanvas.gameObject.SetActive(true);
         bearAnimator.SetBool(Die, true);
     }
 }
