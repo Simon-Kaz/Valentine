@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class UINoCanvasManager : MonoBehaviour
@@ -7,8 +6,6 @@ public class UINoCanvasManager : MonoBehaviour
     [SerializeField] private Canvas uiMainCanvas;
     [SerializeField] private Canvas uiGoodbyeCanvas;
     [SerializeField] private Animator bearAnimator;
-    [SerializeField] private GameObject bearGo;
-    [SerializeField] private GameObject tryAgainButton;
 
     private static readonly int Wave = Animator.StringToHash("Wave");
     private static readonly int Die = Animator.StringToHash("Die");

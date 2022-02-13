@@ -22,7 +22,6 @@ public class GoodbyeCanvasHandler : MonoBehaviour
     {
         bearAnimator.SetBool(Walk, true);
         bearAnimator.SetBool(Die, false);
-        bearGo.transform.position = new Vector3(0, 90, 0);
         yield return MoveOverSeconds(bearGo, new Vector3 (5f, 0f, 0f), 10f);
     }
 
@@ -60,5 +59,6 @@ public class GoodbyeCanvasHandler : MonoBehaviour
         gameObject.SetActive(false);
         bearAnimator.SetBool(Walk, false);
         bearAnimator.SetBool(Wave, true);
+        bearGo.transform.position = new Vector3(0, 0, 0);
     }
 }
